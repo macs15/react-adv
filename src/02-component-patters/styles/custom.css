@@ -5,3 +5,14 @@ div.bg-dark {
 .text-white {
   color: white;
 }
+
+.shopping-cart {
+  position: fixed;
+  right: 10px;
+  top: 0;
+}
+
+.custom-image {
+  width: 100%;
+  aspect-ratio: 1/1;
+}

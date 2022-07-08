@@ -3,8 +3,8 @@ import { Props } from '../../interfaces/Product'
 import styles from '../../styles/styles.module.css'
 import { ProductContext } from './context'
 
-export const ProductCard = ({ product, children, className }: Props) => {
-  const { counter, increaseBy } = useProduct()
+export const ProductCard = ({ product, children, className, style, onChange, value }: Props) => {
+  const { counter, increaseBy } = useProduct({ onChange, product, value })
 
   return (
     <ProductContext.Provider
@@ -14,7 +14,9 @@ export const ProductCard = ({ product, children, className }: Props) => {
         increaseBy
       }}
     >
-      <div className={`${styles.productCard} ${className}`}>{children}</div>
+      <div className={`${styles.productCard} ${className}`} style={style}>
+        {children}
+      </div>
     </ProductContext.Provider>
   )
 }
