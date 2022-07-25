@@ -1,39 +1,57 @@
-import { useFormik } from 'formik'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import '../styles/styles.css'
 
 export const FormikComponentsPage = () => {
-  const { handleSubmit, errors, touched, getFieldProps } = useFormik({
-    initialValues: { firstName: '', lastName: '', email: '' },
-    onSubmit: value => {
-      console.log(value)
-    },
-    validationSchema: Yup.object({
-      firstName: Yup.string().max(15, 'Must be 15 characters or less').required('Required'),
-      lastName: Yup.string().max(15, 'Must be 15 characters or less').required('Required'),
-      email: Yup.string().email().required('Required')
-    })
-  })
-
   return (
     <div>
-      <h1>Formik - Basic tutorial</h1>
+      <h1>Formik - Components tutorial</h1>
 
-      <form noValidate onSubmit={handleSubmit}>
-        <label htmlFor='firstName'>First name</label>
-        <input type='text' {...getFieldProps('firstName')} />
-        {touched.firstName && errors.firstName && <span>{errors.firstName}</span>}
+      <Formik
+        initialValues={{ firstName: '', lastName: '', email: '', terms: false, jobType: '' }}
+        validationSchema={Yup.object({
+          firstName: Yup.string().max(15, 'Must be 15 characters or less').required('Required'),
+          lastName: Yup.string().max(15, 'Must be 15 characters or less').required('Required'),
+          email: Yup.string().email().required('Required'),
+          terms: Yup.bool().oneOf([true], 'You must accept terms and conditions'),
+          jobType: Yup.string().notOneOf(['it-jr'], 'Option not allowed').required('Required')
+        })}
+        onSubmit={values => console.log(values)}
+      >
+        {() => (
+          <Form>
+            <label htmlFor='firstName'>First name</label>
+            <Field type='text' name='firstName' />
+            <ErrorMessage component='span' name='firstName' />
 
-        <label htmlFor='lastName'>Last name</label>
-        <input type='text' {...getFieldProps('lastName')} />
-        {touched.lastName && errors.lastName && <span>{errors.lastName}</span>}
+            <label htmlFor='lastName'>Last name</label>
+            <Field type='text' name='lastName' />
+            <ErrorMessage component='span' name='lastName' />
 
-        <label htmlFor='email'>Email address</label>
-        <input type='text' {...getFieldProps('email')} />
-        {touched.email && errors.email && <span>{errors.email}</span>}
+            <label htmlFor='email'>Email address</label>
+            <Field type='email' name='email' />
+            <ErrorMessage component='span' name='email' />
 
-        <button type='submit'>Submit</button>
-      </form>
+            <label htmlFor='email'>Job type</label>
+            <Field as='select' name='jobType'>
+              <option value=''>Pick something</option>
+              <option value='developer'>Developer</option>
+              <option value='designer'>Designer</option>
+              <option value='it-senior'>IT Senior</option>
+              <option value='it-jr'>IT Jr.</option>
+            </Field>
+            <ErrorMessage component='span' name='jobType' />
+
+            <label>
+              <Field type='checkbox' name='terms' />
+              Terms & conditions
+            </label>
+            <ErrorMessage component='span' name='terms' />
+
+            <button type='submit'>Submit</button>
+          </Form>
+        )}
+      </Formik>
     </div>
   )
 }

@@ -29,13 +29,13 @@ export const Navigation = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to='/formik-components' activeClassName='nav-active' exact>
-                Formik components
+              <NavLink to='/formik-yup' activeClassName='nav-active' exact>
+                Formik yup
               </NavLink>
             </li>
             <li>
-              <NavLink to='/formik-yup' activeClassName='nav-active' exact>
-                Formik yup
+              <NavLink to='/formik-components' activeClassName='nav-active' exact>
+                Formik components
               </NavLink>
             </li>
             <li>
