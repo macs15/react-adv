@@ -2,7 +2,7 @@ import { FC, FormEvent } from 'react'
 import { useForm } from '../hooks/useForm'
 import '../styles/styles.css'
 
-const RegisterPage: FC = () => {
+export const RegisterPage: FC = () => {
   const { name, email, password, passwordRepeat, onChange, resetForm, isValidEmail } = useForm({
     name: '',
     email: '',
@@ -49,5 +49,3 @@ const RegisterPage: FC = () => {
     </div>
   )
 }
-
-export default RegisterPage
